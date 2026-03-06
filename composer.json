@@ -1,13 +1,13 @@
 {
-    "name": "dutchcodingcompany/livewire-recaptcha",
-    "description": "Add Google Recaptcha V3 support to your Laravel Livewire components",
+    "name": "elvisblanco1993/livewire-recaptcha",
+    "description": "Add Google Recaptcha V3 support to your Laravel Livewire v4 components",
     "keywords": [
         "DutchCodingCompany",
         "Livewire",
         "Google ReCaptcha",
         "Laravel"
     ],
-    "homepage": "https://github.com/dutchcodingcompany/livewire-recaptcha",
+    "homepage": "https://github.com/elvisblanco1993/livewire-recaptcha",
     "license": "MIT",
     "require": {
         "php": "^8.2",
