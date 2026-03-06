@@ -19,7 +19,7 @@ class LivewireRecaptchaServiceProvider extends ServiceProvider
 
         Blade::directive(
             'livewireRecaptcha',
-            static fn (string $expression): string => "<?php echo \DutchCodingCompany\LivewireRecaptcha\LivewireRecaptcha::directive($expression) ?>",
+            static fn (string $expression): string => "<?php echo \ElvisBlanco1993\LivewireRecaptcha\LivewireRecaptcha::directive($expression) ?>",
         );
     }
 
