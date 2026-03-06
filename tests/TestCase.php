@@ -1,8 +1,8 @@
 <?php
 
-namespace DutchCodingCompany\LivewireRecaptcha\Tests;
+namespace ElvisBlanco1993\LivewireRecaptcha\Tests;
 
-use DutchCodingCompany\LivewireRecaptcha\LivewireRecaptchaServiceProvider;
+use ElvisBlanco1993\LivewireRecaptcha\LivewireRecaptchaServiceProvider;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Session\Middleware\StartSession;
