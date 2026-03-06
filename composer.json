@@ -1,13 +1,15 @@
 {
     "name": "elvisblanco1993/livewire-v4-recaptcha",
-    "description": "Add Google Recaptcha V3 support to your Laravel Livewire v4 components",
+    "description": "Add Google reCAPTCHA (v3, v2, invisible) support to Laravel Livewire v4 components",
     "keywords": [
-        "Code Wize Technologies",
-        "Livewire 4",
-        "Google ReCaptcha",
-        "Laravel"
+        "livewire",
+        "livewire4",
+        "recaptcha",
+        "google-recaptcha",
+        "laravel",
+        "code wize technologies"
     ],
-    "homepage": "https://github.com/elvisblanco1993/livewire-recaptcha",
+    "homepage": "https://github.com/elvisblanco1993/livewire-v4-recaptcha",
     "license": "MIT",
     "require": {
         "php": "^8.2",
@@ -21,8 +23,8 @@
     },
     "autoload": {
         "psr-4": {
-            "DutchCodingCompany\\LivewireRecaptcha\\": "src/",
-            "DutchCodingCompany\\LivewireRecaptcha\\Tests\\": "tests/"
+            "ElvisBlanco1993\\LivewireRecaptcha\\": "src/",
+            "ElvisBlanco1993\\LivewireRecaptcha\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -33,9 +35,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "DutchCodingCompany\\LivewireRecaptcha\\LivewireRecaptchaServiceProvider"
+                "ElvisBlanco1993\\LivewireRecaptcha\\LivewireRecaptchaServiceProvider"
             ]
         }
-    },
-    "minimum-stability": "stable"
+    }
 }
