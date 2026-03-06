@@ -1,6 +1,6 @@
 <?php
 
-namespace DutchCodingCompany\LivewireRecaptcha;
+namespace ElvisBlanco1993\LivewireRecaptcha;
 
 use Attribute;
 use Closure;
