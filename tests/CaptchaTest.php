@@ -1,8 +1,8 @@
 <?php
 
-namespace DutchCodingCompany\LivewireRecaptcha\Tests;
+namespace ElvisBlanco1993\LivewireRecaptcha\Tests;
 
-use DutchCodingCompany\LivewireRecaptcha\Tests\Fixtures\MyTestComponent;
+use ElvisBlanco1993\LivewireRecaptcha\Tests\Fixtures\MyTestComponent;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use Livewire\Livewire;
