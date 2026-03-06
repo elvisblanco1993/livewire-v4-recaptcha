@@ -1,6 +1,6 @@
 <?php
 
-namespace DutchCodingCompany\LivewireRecaptcha\Tests\Fixtures;
+namespace ElvisBlanco1993\LivewireRecaptcha\Tests\Fixtures;
 
 use DutchCodingCompany\LivewireRecaptcha\ValidatesRecaptcha;
 use Exception;
