@@ -1,132 +1,233 @@
-# Livewire ReCAPTCHA v3/v2/v2-invisible
+# Livewire ReCAPTCHA v3 / v2 / v2 Invisible
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/dutchcodingcompany/livewire-recaptcha.svg?style=flat-square)](https://packagist.org/packages/dutchcodingcompany/livewire-recaptcha)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/dutchcodingcompany/livewire-recaptcha/run-tests.yml?branch=main&label=tests)](https://github.com/dutchcodingcompany/livewire-recaptcha/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/dutchcodingcompany/livewire-recaptcha/php-cs-fixer.yml?branch=main&label=style)](https://github.com/dutchcodingcompany/livewire-recaptcha/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
-[![GitHub PHPStan Action Status](https://img.shields.io/github/actions/workflow/status/dutchcodingcompany/livewire-recaptcha/phpstan.yml?branch=main&label=phpstan)](https://github.com/DutchCodingCompany/livewire-recaptcha/actions?query=workflow%3APHPStan++branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/dutchcodingcompany/livewire-recaptcha.svg?style=flat-square)](https://packagist.org/packages/dutchcodingcompany/livewire-recaptcha)
+A lightweight package that adds **Google reCAPTCHA protection to Livewire components** using a simple directive and attribute.
 
-This package provides a custom Livewire directive to protect your Livewire functions with a _Google reCAPTCHA (v2 + v2
-invisible + v3)_ check.
+This package supports:
 
-## Installation
+* Google **reCAPTCHA v3**
+* Google **reCAPTCHA v2**
+* Google **reCAPTCHA v2 Invisible**
+* **Laravel**
+* **Livewire v3 and Livewire v4**
 
-```shell
-composer require dutchcodingcompany/livewire-recaptcha
+Developed and maintained by **Code Wize Technologies LLC**.
+
+---
+
+# Installation
+
+```
+composer require elvisblanco1993/livewire-v4-recaptcha
 ```
 
-## Configuration
+---
 
-Read https://developers.google.com/recaptcha/intro on how to create your own key pair for the specific ReCaptcha
-version you are going to implement.
+# Configuration
 
-This package supports the following versions. Note that each version requires a different sitekey/secretkey pair:
+Read Google's documentation to create your reCAPTCHA keys:
 
-| **Version**          | **Docs**                                                          | **Notes**                   |
-|----------------------|-------------------------------------------------------------------|-----------------------------|
-| **v3** (recommended) | [V3 Docs](https://developers.google.com/recaptcha/docs/v3)        |                             |
-| **v2**               | [V2 Docs](https://developers.google.com/recaptcha/docs/display)   |                             |
-| **v2 invisible**     | [V2 Docs](https://developers.google.com/recaptcha/docs/invisible) | Use `'size' => 'invisible'` |
+[https://developers.google.com/recaptcha/intro](https://developers.google.com/recaptcha/intro)
 
-Your options should reside in the `config/services.php` file:
+Each version requires its **own site key and secret key pair**.
 
-```php
-    // V3 config:
-    'google' => [
-        'recaptcha' => [
-            'site_key' => env('GOOGLE_RECAPTCHA_SITE_KEY'),
-            'secret_key' => env('GOOGLE_RECAPTCHA_SECRET_KEY'),
-            'version' => 'v3',
-            'score' => 0.5, // An integer between 0 and 1, that indicates the minimum score to pass the Captcha challenge.
-        ],
+---
+
+## Supported Versions
+
+| Version              | Documentation                                                                                                    | Notes                       |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| **v3 (recommended)** | [https://developers.google.com/recaptcha/docs/v3](https://developers.google.com/recaptcha/docs/v3)               | Score-based verification    |
+| **v2**               | [https://developers.google.com/recaptcha/docs/display](https://developers.google.com/recaptcha/docs/display)     | Standard checkbox           |
+| **v2 Invisible**     | [https://developers.google.com/recaptcha/docs/invisible](https://developers.google.com/recaptcha/docs/invisible) | Use `'size' => 'invisible'` |
+
+---
+
+# Laravel Configuration
+
+Add the configuration to **config/services.php**
+
+## reCAPTCHA v3
+
+```
+'google' => [
+    'recaptcha' => [
+        'site_key' => env('GOOGLE_RECAPTCHA_SITE_KEY'),
+        'secret_key' => env('GOOGLE_RECAPTCHA_SECRET_KEY'),
+        'version' => 'v3',
+        'score' => 0.5,
     ],
-
-    // V2 config:
-    'google' => [
-        'recaptcha' => [
-            'site_key' => env('GOOGLE_RECAPTCHA_SITE_KEY'),
-            'secret_key' => env('GOOGLE_RECAPTCHA_SECRET_KEY'),
-            'version' => 'v2',
-            'size' => 'normal', // 'normal', 'compact' or 'invisible'.
-            'theme' => 'light', // 'light' or 'dark'.
-        ],
-    ],
+],
 ```
 
-#### Component
+`score` must be between **0 and 1** and determines the minimum trust threshold.
 
-In your Livewire component, at your form submission method, add the `#[ValidatesRecaptcha]` attribute:
+---
 
-```php
+## reCAPTCHA v2
+
+```
+'google' => [
+    'recaptcha' => [
+        'site_key' => env('GOOGLE_RECAPTCHA_SITE_KEY'),
+        'secret_key' => env('GOOGLE_RECAPTCHA_SECRET_KEY'),
+        'version' => 'v2',
+        'size' => 'normal',
+        'theme' => 'light',
+    ],
+],
+```
+
+Available options:
+
+```
+size: normal | compact | invisible
+theme: light | dark
+```
+
+---
+
+# Usage
+
+## Livewire Component
+
+Add the `#[ValidatesRecaptcha]` attribute to the method that processes the form.
+
+```
 use Livewire\Component;
-use DutchCodingCompany\LivewireRecaptcha\ValidatesRecaptcha;
+use ElvisBlanco1993\LivewireRecaptcha\ValidatesRecaptcha;
 
-class SomeComponent extends Component 
+class ContactForm extends Component
 {
-    // (optional) Set a response property on your component.
-    // If not given, the `gRecaptchaResponse` property is dynamically assigned.
     public string $gRecaptchaResponse;
-    
+
     #[ValidatesRecaptcha]
-    public function save(): mixed
+    public function submit()
     {
-        // Your logic here will only be called if the captcha passes...
+        // This only runs if the captcha passes
     }
 }
 ```
 
-For fine-grained control, you can pass a custom secret key and minimum score (applies only to V3) using:
+If the `$gRecaptchaResponse` property is not declared, it will be **automatically created**.
 
-```php
+---
+
+## Advanced Configuration
+
+You can override the secret key or score directly:
+
+```
 #[ValidatesRecaptcha(secretKey: 'mysecretkey', score: 0.9)]
 ```
 
-#### View
+This is useful if you want **different captcha strictness per form**.
 
-On the view side, you have to include the Blade directive `@livewireRecaptcha`. This adds two scripts to the page,
-one for the reCAPTCHA script and one for the custom Livewire directive to hook into the form submission.
+---
 
-Preferrably these scripts are only added to the page that has the Captcha-protected form (alternatively, you can add
-the `@livewireRecaptcha` directive on a higher level, lets say your layout).
+# Blade Usage
 
-Secondly, add the new directive `wire:recaptcha` to the form element that you want to protect.
+## Add the Livewire Directive
 
-```html
-<!-- some-livewire-component.blade.php -->
+Attach the directive to the form you want protected.
 
-<!-- (optional) Add error handling -->
-@if($errors->has('gRecaptchaResponse'))
-<div class="alert alert-danger">{{ $errors->first('gRecaptchaResponse') }}</div>
-@endif
+```
+<form wire:submit="submit" wire:recaptcha>
+    <!-- form fields -->
 
-<!-- Add the `wire:recaptcha` Livewire directive -->
-<form wire:submit="save" wire:recaptcha>
-    <!-- The rest of your form -->
-    <button type="submit">Submit</button>
+    <button type="submit">
+        Submit
+    </button>
 </form>
+```
 
-<!-- Add the `@livewireRecaptcha` Blade directive -->
+---
+
+## Add the Script Directive
+
+Add the Blade directive once on the page:
+
+```
 @livewireRecaptcha
 ```
 
-You can override any of the configuration values using:
+You can add it:
 
-```html
+* in the **layout**
+* or **only on pages with forms**
+
+---
+
+## Error Handling
+
+When verification fails, a validation error is thrown for:
+
+```
+gRecaptchaResponse
+```
+
+Example:
+
+```
+@if ($errors->has('gRecaptchaResponse'))
+    <div class="text-red-600">
+        {{ $errors->first('gRecaptchaResponse') }}
+    </div>
+@endif
+```
+
+The translation key is:
+
+```
+livewire-recaptcha::recaptcha.invalid_response
+```
+
+---
+
+# Overriding Settings in Blade
+
+You can override any configuration directly:
+
+```
 @livewireRecaptcha(
     version: 'v2',
-    siteKey: 'abcd_efgh-hijk_LMNOP',
+    siteKey: 'your_site_key',
     theme: 'dark',
-    size: 'compact',
+    size: 'compact'
 )
 ```
 
-#### Finishing up
+---
 
-The Google ReCAPTCHA validation will automatically occur before the actual form is submitted. Before the `save()` method
-is executed, a serverside request will be sent to Google to verify the Captcha challenge. Once the reCAPTCHA
-response has been successful, your actual Livewire component method will be executed.
+# How It Works
 
-#### Error handling
+1. The form is submitted.
+2. The `wire:recaptcha` directive intercepts the request.
+3. A **reCAPTCHA token is generated client-side**.
+4. The token is **validated server-side against Google**.
+5. If validation passes, the Livewire method runs.
 
-When an error occurs with the Captcha validation, a ValidationException is thrown for the key `gRecaptchaResponse`.
-There is a translatable error message available under `'livewire-recaptcha::recaptcha.invalid_response'`.
+If validation fails, the request is rejected.
+
+---
+
+# Compatibility
+
+| Package  | Supported |
+| -------- | --------- |
+| Laravel  | 10+       |
+| Livewire | v3        |
+| Livewire | v4        |
+
+---
+
+# Security
+
+Always validate reCAPTCHA **server-side**, which this package does automatically.
+
+Never trust client responses alone.
+
+---
+
+# License
+
+MIT License
