@@ -12,5 +12,5 @@ currently being supported with security updates.
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability within this plugin, please email Dutch Coding Company via [support@codewize.co](mailto:support@codewize.co). 
+If you discover a security vulnerability within this plugin, please email Code Wize via [support@codewize.co](mailto:support@codewize.co). 
 All security vulnerabilities will be promptly addressed.
