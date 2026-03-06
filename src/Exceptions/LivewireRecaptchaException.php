@@ -1,6 +1,6 @@
 <?php
 
-namespace DutchCodingCompany\LivewireRecaptcha\Exceptions;
+namespace ElvisBlanco1993\LivewireRecaptcha\Exceptions;
 
 use Exception;
 
